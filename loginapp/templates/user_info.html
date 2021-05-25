@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body id="center">
+    <div id="header">
+        <h2>Welcome {{ user.first_name }}</h2>
+        <h2><a href="/show_profile_page">Profile </a></h3>
+        <h2><a href="/logout">Logout</a></h3>
+    </div>
+
+    <div id="info">
+        <h2>Your updated Information</h3>
+        <h3>Name : {{ user.first_name }} {{ user.last_name }}</h3>
+        <h3>User email: {{ user.email }}</h3>
+        <h3>Your Role Preference: {{user.role}}</h3>
+    </div>
+
+    <div>
+        {% for customer in customers %}
+        {% if user.first_name == customer.customer.first_name %}
+        <h3>Your Wedding Requirements</h3>
+        <h3>Destination Preferred: {{ customer.destination }}</h3>
+        <h3>Budgets: {{ customer.budget }}</h3>
+        <h3>Months Preferred: {{ customer.months }}</h3>
+        <h3>Activites Required: {{ customer.activity }}</h3>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="info">
+        {% if user.role == "Customer" %}
+        <h1>List of Available Wedding Planners</h1>
+        {% for person in users %}
+        {% if person.role == "Wedding Planner" %}
+            {% for planner in planners %}
+                {% if person.first_name == planner.planner.first_name %}
+                    <h3>First Name: {{ person.first_name }} {{ person.last_name }}</h3>
+                    <h3>Destination: {{ planner.destination }}</h3>
+                    <h3>Months Available: {{ planner.months }}</h3>
+                    <h3>Budget Served: {{ planner.budget }}</h3>
+                    <h3>First Name: {{ person.first_name }}</h3>
+                    <h3>
+                        <form action="/leave_message" method="POST">
+                            {% csrf_token %}
+                            <h3>Message: <input type="text" name="message" id="message"></h3>
+                            <input type="hidden" name="posted_by" value='{{user.id}}'>
+                            <input type="hidden" name="posted_for" value='{{person.id}}'>
+                            <input type="submit" value="Post Message">
+                        </form>
+                    </h3>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div>
+        <h1>Messages I have sent</h1>
+        {% for message in all_messages %}
+        {% if message.posted_by.first_name == user.first_name %}
+        <h3>{{message.posted_by.first_name}} wrote: {{ message.message }}</h3>
+            {% for comment in message.message_comment.all %}
+            <h3>{{comment.posted_by.first_name}} Wrote: {{comment.comment}}</h3>
+            {% endfor %}
+            <form action="/leave_comment" method="POST">
+                {% csrf_token %}
+                <h3>Comment: <input type="text" name="comment" id="comment"></h3>
+                <input type="hidden" name="message_id" value='{{message.id}}'>
+                <input type="hidden" name="posted_by" value='{{user.id}}'>
+                <input type="submit" value="Post Comment">
+            </form>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="info">
+        <h1>Messages sent to me</h1>
+        {% for message in all_messages %}
+        {% if message.posted_for.first_name == user.first_name %}
+        <h3>{{message.posted_by.first_name}} wrote: {{ message.message }}</h3>
+            {% for comment in message.message_comment.all %}
+            <h3>{{comment.posted_by.first_name}} Wrote: {{comment.comment}}</h3>
+            {% endfor %}
+            <form action="/leave_comment" method="POST">
+                {% csrf_token %}
+                <h3>Comment: <input type="text" name="comment" id="comment"></h3>
+                <input type="hidden" name="message_id" value='{{message.id}}'>
+                <input type="hidden" name="posted_by" value='{{user.id}}'>
+                <input type="submit" value="Post Comment">
+            </form>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</body>
+</html>

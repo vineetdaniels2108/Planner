@@ -1,0 +1,37 @@
+* {
+    font-family: 'Hermit', monospace;
+    display: grid;
+}
+
+#center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid skyblue;
+    padding: 10px;
+    text-align: center;
+    border: 3px solid skyblue;
+    background-color: azure;
+}
+
+#center_block {
+    display: inherit;
+    margin: auto;
+    width: 50%;
+    border: 3px solid skyblue;
+    padding: 10px;
+    border: 3px solid skyblue;
+    background-color: azure;
+    height: 550px;
+}
+
+#header {
+    display: inline-flex;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+#info {
+    background-color: lightgray;
+    color: lightcoral;
+}

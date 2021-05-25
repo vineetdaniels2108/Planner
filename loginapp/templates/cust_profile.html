@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div id="center">
+        <h1>Create your profile</h1>
+        <h3>Welcome {{ user.first_name }} {{ user.last_name }} !</h3>
+    </div>
+
+    <div id="center_block">
+        <form action="/create_customer_profile" method="POST">
+            {% csrf_token %}
+            <label for="destination">Destination Served</label>
+            <select name="cust_destination" id="destination">
+                <option value="cartagena">Cartagena</option>
+                <option value="Vancouver">Vancouver</option>
+                <option value="sanfrancisco">San Francisco</option>
+                <option value="losangeles">Los Angeles</option>
+            </select>
+            <label for="months">Months Available</label>
+            <select name="cust_months" id="months" multiple>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <label for="budgets">Budgets Served</label>
+            <select name="cust_budgets" id="budgets">
+                <option value="low">Low - Between 1-10K</option>
+                <option value="medium">Medium - Between 10-25K</option>
+                <option value="high">High - Between 25 -50K</option>
+                <option value="luxury">Luxury - Between 50-100K</option>
+            </select>
+            <label for="activities">Wedding activities</label>
+            <select name="cust_activities" id="activities" multiple>
+                <option value="1">Budget Planning</option>
+                <option value="2">Attire</option>
+                <option value="3">Flowers</option>
+                <option value="4">Decor</option>
+                <option value="5">Music</option>
+                <option value="6">Photography</option>
+                <option value="7">Gifts</option>
+                <option value="8">Ceremony</option>
+                <option value="9">Stationary</option>
+                <option value="10">Wedding Rings</option>
+                <option value="11">Transportation</option>
+                <option value="12">Misc</option>
+            </select>
+            <input type="submit" name="submit" id="submit" value="Update">
+        </form>
+    </div>
+</body>
+</html>

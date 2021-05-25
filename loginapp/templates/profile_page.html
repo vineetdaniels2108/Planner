@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body id="center">
+    <div id="header">
+        <h2>Welcome {{ log_user.first_name }}</h2>
+        <h3><a href="/show_user_info/{{log_user.id}}">Home</a></h3>
+        <h3><a href="/logout">Logout</a></h3>
+    </div>
+
+    <div id="info">
+        <h3>{{ log_user.first_name }} {{ log_user.last_name }}</h3>
+        <h3>User ID: {{ log_user.id }}</h3>
+        <h3>User email: {{ log_user.email }}</h3>
+        <h3>User Profile : {{ log_user.role }}</h3>
+    </div>
+
+    <div>
+        {% if log_user.role == "Wedding Planner" %}
+        <h3>Destinations Served : {{ user.destination }}</h3>
+        <h3>Months Available : {{ user.months }}</h3>
+        <h3>Budgets Catered : {{ user.budget }}</h3>
+        {% else %}
+        <h3>Destinations Preferred : {{ user.destination }}</h3>
+        <h3>Months preferred : {{ user.months }}</h3>
+        <h3>Budget Required : {{ user.budget }}</h3>
+        <h3>Activities Needed : {{ user.activity }}</h3>
+        {% endif %}
+    </div>
+</body>
+</html>
