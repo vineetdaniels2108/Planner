@@ -76,11 +76,11 @@ budget_choices = (
 )
 
 activity_choices = (
-    ("Budget Planning","Budget Planning"),
-    ("Attire","Attire"),
-    ("Flowers","Flowers"),
-    ("Decor","Decor"),
-    ("Music","Music"),
+    ("1","Budget Planning"),
+    ("2","Attire"),
+    ("3","Flowers"),
+    ("4","Decor"),
+    ("5","Music"),
     ("6","Photography"),
     ("7","Gifts"),
     ("8","Ceremony"),

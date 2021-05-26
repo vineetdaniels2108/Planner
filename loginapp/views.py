@@ -30,7 +30,7 @@ def create_user (request):
             for k,v in errors.items():
                 messages.error(request, v)
                 
-            return redirect('/')
+            return redirect('/show_reg_page')
         
         else: 
             hashedpw = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
